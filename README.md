@@ -7,6 +7,10 @@ las consulten via REST, y las expongan a clientes de IA via MCP.
 
 Firmware de ejemplo para los sensores: [fablab-inacap-sensors-aggregator](https://github.com/farandal/fablab-inacap-sensors-aggregator).
 
+Documentación adicional:
+- [DOCUMENTATION.md](DOCUMENTATION.md) — documentación técnica completa (arquitectura, decisiones, operaciones realizadas).
+- [IMPLEMENTATION.md](IMPLEMENTATION.md) — guía para estudiantes: qué debe implementar su código de sensor.
+
 ## Arquitectura
 
 ```
