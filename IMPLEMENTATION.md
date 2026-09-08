@@ -7,17 +7,32 @@ formato y **rechaza** bloques que no cumplan el contrato descrito aquí.
 Repo de referencia con un ejemplo funcional (DHT11 + ESP32/ESP8266):
 https://github.com/farandal/fablab-inacap-sensors-aggregator
 
-## 1. Datos que les entregaremos
+## 1. Endpoint del agregador (producción)
 
-El profesor/ayudante les dará:
+El backend ya está desplegado y disponible en:
 
-- **`SERVER_URL`**: URL del endpoint de ingesta, ej.
-  `https://fablab-inacap-sensors-backend.onrender.com/ingest`
+```
+https://fablab-inacap-sensors-backend.onrender.com
+```
+
+Rutas que usarán:
+
+| Uso | Método | URL completa |
+|---|---|---|
+| Enviar lecturas | `POST` | `https://fablab-inacap-sensors-backend.onrender.com/ingest` |
+| Consultar sus datos | `GET` | `https://fablab-inacap-sensors-backend.onrender.com/lecturas?sensor_id=SU_SENSOR_ID` |
+
+> Nota: el plan gratuito de Render "duerme" el servicio tras un rato sin
+> tráfico. La primera petición tras la inactividad puede tardar unos segundos
+> extra en responder — es normal, no es un error de su código.
+
+Además, el profesor/ayudante les entregará:
+
 - **`SENSOR_ID`**: identificador único para su sensor/grupo, ej.
   `arduino_r3_lab_3`
 - **`BEARER_TOKEN`**: token secreto asignado a su `SENSOR_ID`
 
-Guarden estos 3 valores — sin ellos su sensor no podrá enviar datos.
+Guarden estos 2 valores — sin ellos su sensor no podrá enviar datos.
 
 ## 2. Requisitos de hardware/software
 
@@ -93,7 +108,7 @@ Solo necesitan cambiar al inicio del archivo:
 ```cpp
 const char* WIFI_SSID     = "SU_WIFI";
 const char* WIFI_PASSWORD = "SU_PASSWORD";
-const char* SERVER_URL    = "URL_QUE_LES_DIMOS/ingest";
+const char* SERVER_URL    = "https://fablab-inacap-sensors-backend.onrender.com/ingest";
 const char* SENSOR_ID     = "SU_SENSOR_ID";
 const char* BEARER_TOKEN  = "SU_TOKEN";
 ```
@@ -116,13 +131,13 @@ Después de que su sensor envíe al menos un bloque, pueden consultar sus
 propias lecturas (no requiere token, es de solo lectura):
 
 ```
-GET https://<SERVER_URL_BASE>/lecturas?sensor_id=SU_SENSOR_ID
+GET https://fablab-inacap-sensors-backend.onrender.com/lecturas?sensor_id=SU_SENSOR_ID
 ```
 
 Desde el navegador, o con `curl`:
 
 ```bash
-curl "https://<SERVER_URL_BASE>/lecturas?sensor_id=SU_SENSOR_ID"
+curl "https://fablab-inacap-sensors-backend.onrender.com/lecturas?sensor_id=SU_SENSOR_ID"
 ```
 
 Deberían ver un arreglo JSON con sus lecturas y un `timestamp` calculado por
